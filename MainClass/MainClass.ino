@@ -18,6 +18,19 @@ const byte outputIR = 12;
 int signalIR;
 int buttonState;
 
+//Motor
+const byte Analog1 = 10; //ENABLE Motor1
+const byte Analog2 = 11; //ENABLE Motor2
+
+/** 6 -> Input 1
+    7 -> Input 2
+    8 -> Input 3
+    9 -> Input 4*/
+const int MotorPin1 = 6; //INPUT 1 Motor1
+const int MotorPin2 = 7; //INPUT 2 Motor1
+const int MotorPin3 = 8; //INPUT 1 Motor2
+const int MotorPin4 = 9; //INPUT 2 Motor2
+
 void setup()
 {
   Serial.begin(9600);//Change the baud rate value depending on the default baud rate of your bluetooth module, for Bluesmirf-115200 and for JY-MCU-9600
@@ -25,7 +38,16 @@ void setup()
   right.attach(10, 800, 2200); //right servo on digital pin 10 of arduino
   //Serial.begin(9600);  
   pinMode(ECHOPIN, INPUT); 
-  pinMode(TRIGPIN, OUTPUT); 
+  pinMode(TRIGPIN, OUTPUT);
+
+  //Motor
+  pinMode(Analog1, OUTPUT);
+  pinMode(Analog2, OUTPUT);
+
+  pinMode(MotorPin1, OUTPUT);
+  pinMode(MotorPin2, OUTPUT);
+  pinMode(MotorPin3, OUTPUT);
+  pinMode(MotorPin4, OUTPUT);
 
   //IR SENSOR
   pinMode(inputIR, INPUT);
@@ -79,6 +101,39 @@ void CheckAvailable(){
   }
 }
 
+//MotorControls
+//----------------------------------------------------------
+void forward() {
+  digitalWrite(MotorPin1, HIGH);
+  digitalWrite(MotorPin2, LOW);
+  digitalWrite(MotorPin3, HIGH);
+  digitalWrite(MotorPin4, LOW);
+
+}
+
+void backward() {
+  digitalWrite(MotorPin1, LOW);
+  digitalWrite(MotorPin2, HIGH);
+  digitalWrite(MotorPin3, LOW);
+  digitalWrite(MotorPin4, HIGH);
+
+}
+
+void turnRight() {
+  digitalWrite(MotorPin1, HIGH);
+  digitalWrite(MotorPin2, LOW);
+  digitalWrite(MotorPin3, LOW);
+  digitalWrite(MotorPin4, HIGH);
+
+}
+
+void turnLeft() {
+  digitalWrite(MotorPin1, LOW);
+  digitalWrite(MotorPin2, HIGH);
+  digitalWrite(MotorPin3, HIGH);
+  digitalWrite(MotorPin4, LOW);
+
+}
 
 //TODO
 void MoveRobot(){
@@ -134,6 +189,7 @@ void fireIR() {
   digitalWrite(outputIR, LOW);
 
 }
+
 
 
 
