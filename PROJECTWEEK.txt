@@ -1,0 +1,15 @@
+Connection with server
+read the distance sensors DONE 
+fire shot
+interrupt when hit
+waiting queue from webserver
+buid a client to control the robot (left , right ,...) DONE 
+the commands to the web service are on LEHO
+bluetooth communication to the arduino (NODE.JS) Brian
+output on the controller
+feedback to the user
+sensor
+interrupt?
+
+https://diyhacking.com/make-android-controlled-robot/
+
