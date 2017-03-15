@@ -4,12 +4,19 @@
 Servo left;//Define left servo
 Servo right;//Define right servo
 byte val;
-const float distance;
+int lives = 3;
+
+//DistanceSensor
+float distance;
 const int TRIGPIN = 3;
 const int ECHOPIN = 4;
+
+//IR 
 const byte inputIR = A0;
 const byte button = 2;
 const byte outputIR = 12;
+int signalIR;
+int buttonState;
 
 void setup()
 {
@@ -25,7 +32,7 @@ void setup()
   pinMode(outputIR, OUTPUT);
   pinMode(button, INPUT);
   //If close, shoot
-  if (distance > 200){
+  if (distance < 30){
     
     attachInterrupt(inputIR, readIR, CHANGE);
     attachInterrupt(button, fireIR, FALLING);    
@@ -55,7 +62,7 @@ void CalculateDistance(){
   
   Serial.print(distance); 
   Serial.println(" cm");
-  delay(1000); 
+  delay(5000); 
   
 }
 
@@ -73,7 +80,7 @@ void CheckAvailable(){
 }
 
 
-
+//TODO
 void MoveRobot(){
   if(int(val)==49)//Move front
 {
@@ -110,13 +117,17 @@ if(int(val)==52)//right
 
 }
 
+
 void readIR() {
   signalIR = analogRead(inputIR);
   Serial.println(signalIR);
+  lives--; 
+  Serial.println("Lives : ");
+  Serial.print(lives);
 }
 
 void fireIR() {
-
+  Serial.println("Shooting...");
 
   digitalWrite(outputIR, HIGH);
   delay(100);
