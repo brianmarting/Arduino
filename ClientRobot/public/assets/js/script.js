@@ -1,4 +1,5 @@
 var socket;
+var request = require('request');
 
 //sending data to bluetooth controller
 function openSocket() {
@@ -44,8 +45,6 @@ function fire(){
 function stop(){
     socket.send("z");
 }
-
-var request = require('request');
 
 /*var user_details = {
  ammo: {}

@@ -4,6 +4,8 @@ byte val;
 int lives = 3;
 char key = 'KEY_RIGHT_ARROW';
 
+
+
 //DistanceSensor
 float distance;
 const int TRIGPIN = 3;
@@ -172,7 +174,7 @@ void forward() {
   digitalWrite(MotorPin2, LOW);
   digitalWrite(MotorPin3, HIGH);
   digitalWrite(MotorPin4, LOW);
-  delay(3000);
+  delay(500);
   stopp();
 
 }
@@ -182,7 +184,7 @@ void backward() {
   digitalWrite(MotorPin2, HIGH);
   digitalWrite(MotorPin3, LOW);
   digitalWrite(MotorPin4, HIGH);
-  delay(3000);
+  delay(500);
   stopp();
 
 }

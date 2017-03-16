@@ -1,6 +1,7 @@
 var serialport = require('serialport');
 var readline = require('readline');
 var WebSocketServer = require('ws').Server;
+var request = require('request');
 
 var portname = process.argv[2];
 
