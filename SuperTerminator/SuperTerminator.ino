@@ -1,12 +1,12 @@
 const byte inputIR=A0;
 const byte outputIR=13;
 
-const int motor1_1=8;
-const int motor1_2=9;
-const int motor2_1=10;
-const int motor2_2=11;
-const int enable1=12;
-const int enable2=13;
+const int motor1_1=6;
+const int motor1_2=7;
+const int motor2_1=8;
+const int motor2_2=9;
+const int enable1=10;
+const int enable2=11;
 
 char cmd;
 const char up='u';
@@ -98,5 +98,6 @@ void fireShot(){
   digitalWrite(outputIR,LOW);
   Serial.println("Fire!");
   Serial1.println("Fire!");
+  Serial.println(cmd);
 }
 

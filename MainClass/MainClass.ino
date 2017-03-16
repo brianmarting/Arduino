@@ -4,6 +4,13 @@ byte val;
 int lives = 3;
 char key = 'KEY_RIGHT_ARROW';
 
+//LiquidCrystal
+#include <LiquidCrystal.h>
+
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
+#define   CONTRAST_PIN   11
+#define   BACKLIGHT_PIN  10
+#define   CONTRAST       125
 
 //DistanceSensor
 float distance;
@@ -33,11 +40,26 @@ const int MotorPin4 = 9; //INPUT 2 Motor2
 void setup()
 {
   Serial.begin(9600);//Change the baud rate value depending on the default baud rate of your bluetooth module, for Bluesmirf-115200 and for JY-MCU-9600
-  
+  Serial1.begin(9600);
+  Serial1.println("READY");
   //Serial.begin(9600);  
   pinMode(ECHOPIN, INPUT); 
   pinMode(TRIGPIN, OUTPUT);
 
+  //LiqCrystal
+  pinMode(CONTRAST_PIN, OUTPUT);
+  pinMode(BACKLIGHT_PIN, OUTPUT);
+
+  digitalWrite(BACKLIGHT_PIN, HIGH);
+  analogWrite (CONTRAST_PIN, CONTRAST);
+    
+  lcd.begin(16,2);               // initialize the lcd 
+
+  lcd.home ();                   // go home
+  lcd.print("Hello, ARDUINO ");  
+  lcd.setCursor ( 0, 1 );        // go to the next line
+  lcd.print (" WORLD!");      
+  
   //Motor
   pinMode(Analog1, OUTPUT);
   pinMode(Analog2, OUTPUT);
@@ -55,20 +77,25 @@ void setup()
   if (distance < 30){
     
     attachInterrupt(inputIR, readIR, CHANGE);
-    attachInterrupt(button, fireIR, FALLING);    
+    
   }
  
 }
 
 void loop()
 {  
- CheckAvailable();
- CalculateDistance();
+ //CheckAvailable();
+ //CalculateDistance();
+ 
  //backward();
  char incomingChar = 0;   // for incoming serial data
-
-  if (Serial.available() > 0) {
-    incomingChar = Serial.read();
+ 
+ //else {
+ // Serial.println("NOT");
+// }
+ 
+  if (Serial1.available()) {
+    incomingChar = Serial1.read();
     switch (incomingChar) {
       case 'w':
         forward();
@@ -84,6 +111,9 @@ void loop()
         break;
       case 'z':
         stopp();
+        break;  
+      case 'r':
+        fireIR();
         break;  
       
     }
@@ -131,7 +161,7 @@ void CalculateDistance(){
   
   Serial.print(distance); 
   Serial.println(" cm");
-  delay(500); 
+  delay(5000); 
   
 }
 
@@ -155,6 +185,8 @@ void forward() {
   digitalWrite(MotorPin2, LOW);
   digitalWrite(MotorPin3, HIGH);
   digitalWrite(MotorPin4, LOW);
+  delay(3000);
+  stopp();
 
 }
 
@@ -163,6 +195,8 @@ void backward() {
   digitalWrite(MotorPin2, HIGH);
   digitalWrite(MotorPin3, LOW);
   digitalWrite(MotorPin4, HIGH);
+  delay(3000);
+  stopp();
 
 }
 
@@ -171,6 +205,8 @@ void turnRight() {
   digitalWrite(MotorPin2, LOW);
   digitalWrite(MotorPin3, LOW);
   digitalWrite(MotorPin4, HIGH);
+  delay(200);
+  stopp();
 
 }
 
@@ -179,6 +215,8 @@ void turnLeft() {
   digitalWrite(MotorPin2, HIGH);
   digitalWrite(MotorPin3, HIGH);
   digitalWrite(MotorPin4, LOW);
+  delay(200);
+  stopp();
 
 }
 
