@@ -4,8 +4,6 @@ byte val;
 int lives = 3;
 char key = 'KEY_RIGHT_ARROW';
 
-
-
 //DistanceSensor
 float distance;
 const int TRIGPIN = 3;
@@ -13,8 +11,11 @@ const int ECHOPIN = 4;
 
 //IR 
 const byte inputIR = A0;
-const byte button = 2;
+const byte outputIR4 = 2;
 const byte outputIR = 12;
+const byte outputIR2 = 11;
+const byte outputIR3 = 10;
+
 int signalIR;
 int buttonState;
 
@@ -52,13 +53,15 @@ void setup()
   //IR SENSOR
   pinMode(inputIR, INPUT);
   pinMode(outputIR, OUTPUT);
-  pinMode(button, INPUT);
-  //If close, shoot
-  if (distance < 30){
+  pinMode(outputIR2, OUTPUT);
+  pinMode(outputIR3, OUTPUT);
+  pinMode(outputIR4, OUTPUT);
+
+
     
     attachInterrupt(inputIR, readIR, CHANGE);
     
-  }
+
  
 }
 
@@ -90,10 +93,7 @@ void loop()
         stopp();
         break;  
       case 'r':
-        if (distance < 200){
-           fireIR();
-        }
-    
+        fireIR();
         break;  
       
     }
@@ -106,23 +106,28 @@ void loop()
 //IR
 //----------------------------------------------------------
 void readIR() {
-  Serial.println("Shot taken...");
+  if (distance < 200){
+    Serial.println("Shot taken...");
   signalIR = analogRead(inputIR);
   Serial.println(signalIR);
-  lives--; 
-  Serial.println("Lives : ");
-  Serial.print(lives);
   Serial1.println("h");
   delay(5000);// om niet meerdere keren geraakt te worden in 1 keer
+  }
+  
 }
 
 void fireIR() {
   Serial.println("Shooting...");
 
   digitalWrite(outputIR, HIGH);
+  digitalWrite(outputIR2 , HIGH);
+  digitalWrite(outputIR3 , HIGH);
+  digitalWrite(outputIR4 , HIGH);
   delay(100);
   digitalWrite(outputIR, LOW);
-
+  digitalWrite(outputIR2, LOW);
+  digitalWrite(outputIR3, LOW);
+  digitalWrite(outputIR4, LOW);
 }
 
 
@@ -143,7 +148,7 @@ void CalculateDistance(){
   
   Serial.print(distance); 
   Serial.println(" cm");
-  delay(1000); 
+  delay(3000); 
   
 }
 
