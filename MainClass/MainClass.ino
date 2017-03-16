@@ -4,13 +4,7 @@ byte val;
 int lives = 3;
 char key = 'KEY_RIGHT_ARROW';
 
-//LiquidCrystal
-#include <LiquidCrystal.h>
 
-LiquidCrystal lcd(12, 11, 5, 4, 3, 2);
-#define   CONTRAST_PIN   11
-#define   BACKLIGHT_PIN  10
-#define   CONTRAST       125
 
 //DistanceSensor
 float distance;
@@ -44,21 +38,7 @@ void setup()
   Serial1.println("READY");
   //Serial.begin(9600);  
   pinMode(ECHOPIN, INPUT); 
-  pinMode(TRIGPIN, OUTPUT);
-
-  //LiqCrystal
-  pinMode(CONTRAST_PIN, OUTPUT);
-  pinMode(BACKLIGHT_PIN, OUTPUT);
-
-  digitalWrite(BACKLIGHT_PIN, HIGH);
-  analogWrite (CONTRAST_PIN, CONTRAST);
-    
-  lcd.begin(16,2);               // initialize the lcd 
-
-  lcd.home ();                   // go home
-  lcd.print("Hello, ARDUINO ");  
-  lcd.setCursor ( 0, 1 );        // go to the next line
-  lcd.print (" WORLD!");      
+  pinMode(TRIGPIN, OUTPUT);  
   
   //Motor
   pinMode(Analog1, OUTPUT);
@@ -84,15 +64,12 @@ void setup()
 
 void loop()
 {  
- //CheckAvailable();
+
  //CalculateDistance();
  
  //backward();
  char incomingChar = 0;   // for incoming serial data
- 
- //else {
- // Serial.println("NOT");
-// }
+
  
   if (Serial1.available()) {
     incomingChar = Serial1.read();
@@ -113,7 +90,10 @@ void loop()
         stopp();
         break;  
       case 'r':
-        fireIR();
+        if (distance < 200){
+           fireIR();
+        }
+    
         break;  
       
     }
@@ -132,6 +112,8 @@ void readIR() {
   lives--; 
   Serial.println("Lives : ");
   Serial.print(lives);
+  Serial1.println("h");
+  delay(5000);// om niet meerdere keren geraakt te worden in 1 keer
 }
 
 void fireIR() {
@@ -161,7 +143,7 @@ void CalculateDistance(){
   
   Serial.print(distance); 
   Serial.println(" cm");
-  delay(5000); 
+  delay(1000); 
   
 }
 
