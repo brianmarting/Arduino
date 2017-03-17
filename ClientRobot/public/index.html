@@ -14,7 +14,7 @@
 </head>
 <body>
 
-<div id="container">
+<!--<div id="container">
     <h1>Robot Wars</h1>
 
     <main class="cf">
@@ -29,7 +29,7 @@
             </figure>
     </main>
 </div>
-<!--<map name="controllermap">
+<map name="controllermap">
   <area shape="rect" coords="35,35,65,55" id="UP" alt="UP">
   <area shape="rect" coords="40,85,65,105" id="DOWN" alt="DOWN">
   <area shape="rect" coords="15,60,45,80" id="LEFT" alt="LEFT">
@@ -40,18 +40,34 @@
   <area shape="circle" coords="190,90,10" id="start" alt="LOGIN">
   </map>-->
 
-<table>
-    <tr><td></td><td><button onclick="forward()" accesskey="y">Forward</button></td><td></td></tr>
-    <tr><td><button onclick="left()" accesskey="g">Left</button></td><td><button onclick="stop()" accesskey="s">Stop</button></td><td><button onclick="right()" accesskey="j">Right</button></td></tr>
-    <tr><td></td><td><button onclick="backwards()" accesskey="h">Back</button></td><td></td></tr>
+<table >
+    <tr><td></td><td>
+		<img src="assets/img/forward.png" onclick="forward()" accesskey="y">
+	</td><td></td></tr>
+    <tr><td>
+		<img src="assets/img/left.png"  onclick="left()" accesskey="g">
+		</td><td>
+		<button onclick="stop()" accesskey="s">Stop</button>
+		</td><td>
+		<img src="assets/img/right.png"  onclick="right()" accesskey="j">
+		</td>
+	</tr>
+    <tr><td></td><td>
+		<img src="assets/img/backwards.png" onclick="backwards()" accesskey="h"></td><td></td></tr>
     <tr></tr>
-    <tr><td></td><td></td><td></td><td></td><td><button onclick="getAmmo()" accesskey="r">Reload</button></td>/tr>
-    <tr><td></td><td></td><td></td><td></td><td><button onclick="shoot()" accesskey="t">Shoot</button></td>/tr>
+    <tr><td></td><td></td><td></td><td></td><td>
+		<button onclick="getAmmo()" accesskey="r">Reload</button>
+		</td>
+	</tr>
+    <tr><td></td><td></td><td></td><td></td><td>
+		<button onclick="shoot()" accesskey="t">Shoot</button>
+		</td>
+	</tr>
 </table>
 
-<footer>
+<!--<footer>
     Droids royalty free on <a href="http://all-silhouettes.com/" target="_blank">all-silhouettes.com/</a>
-</footer>
+</footer>-->
 
 </body>
 </html>

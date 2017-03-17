@@ -1,5 +1,5 @@
 var socket;
-var request = require('request');
+//var request = require('request');
 
 //sending data to bluetooth controller
 function openSocket() {
@@ -64,7 +64,25 @@ var ip = '172.31.11.27';
 var port = '3000';
 
 function getHit(){
-    request(
+	
+	$.ajax({
+		type: 'POST',
+		url: "http://" + ip + ":" + port + "/game/" + game_id + "/player/" + player_id + "/hit",
+		async: true,
+		contentType: "application/json",
+		dataType: 'json',
+		success:
+			function(data) {
+				console.log('We got hit and damage is done');
+			},
+		error:
+			function(XMLHttpRequest, textStatus, errorThrown) {
+				
+			
+			}
+	});
+	
+    /*request(
         {
             url: "http://" + ip + ":" + port + "/game/" + game_id + "/player/" + player_id + "/hit",
             method: "POST",
@@ -72,7 +90,7 @@ function getHit(){
         },
         function (error, response, body){
             console.log('We got hit and damage is done');
-        });
+        });*/
 }
 
 //only gets, doesnt log you in
@@ -128,7 +146,32 @@ function getHit(){
  };*/
 
 function getAmmo(){
-    request(
+	
+	$.ajax({
+        type : 'GET',
+        url : "http://" + ip + ":" + port + "/game/" + game_id + "/player/" + player_id + "/ammo",
+        async : true,
+        success : function(data){
+			
+			console.log("\nGETTING AMMO\n");
+
+            var body = JSON.parse(data);
+
+            if(body.result == "OK"){
+                console.log("We've got some ammo.\n");
+            }else if (body.result == "NOK"){
+                console.log("We can't get any ammo.\n");
+            }
+
+            console.log("-------------------------------------------------");
+        },
+        error : function(XMLHttpRequest, textStatus, errorThrown){
+			
+        }
+    });
+	
+	
+    /*request(
         {
             url: "http://" + ip + ":" + port + "/game/" + game_id + "/player/" + player_id + "/ammo",
             method: "GET"
@@ -154,12 +197,30 @@ function getAmmo(){
             console.log("Hit: " + user_details.ammo.hit);
 
             console.log("-------------------------------------------------");
-        });
+        });*/
 }
 
 function shoot(){
+	
     fire();
-    request(
+	
+	$.ajax({
+		type: 'POST',
+		url: "http://" + ip + ":" + port + "/game/" + game_id + "/player/" + player_id + "/ammo",
+		async: true,
+		contentType: "application/json",
+		dataType: 'json',
+		success:
+			function(data) {
+				console.log('Robot fires a shot');
+			},
+		error:
+			function(XMLHttpRequest, textStatus, errorThrown) {
+			
+			}
+	});
+	
+    /*request(
         {
             url: "http://" + ip + ":" + port + "/game/" + game_id + "/player/" + player_id + "/ammo",
             method: "POST",
@@ -167,5 +228,5 @@ function shoot(){
         },
         function (error, response, body){
             console.log('Robot fires a shot');
-        });
+        });*/
 }
