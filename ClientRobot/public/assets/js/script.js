@@ -58,9 +58,9 @@ function stop(){
 
  var queue = false;*/
 
-var game_id = 9;
-var player_id = 0;
-var ip = '172.31.11.27';
+var game_id = 0;
+var player_id = 1;
+var ip = '172.31.31.40';
 var port = '3000';
 
 function getHit(){
@@ -155,7 +155,7 @@ function getAmmo(){
 			
 			console.log("\nGETTING AMMO\n");
 
-            var body = JSON.parse(data);
+            var body = data;//JSON.parse(data);
 
             if(body.result == "OK"){
                 console.log("We've got some ammo.\n");
